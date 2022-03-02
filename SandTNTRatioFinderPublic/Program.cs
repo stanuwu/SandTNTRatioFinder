@@ -93,7 +93,7 @@ namespace SandTNTRatioFinderPublic
                                 if (difference <= differencethreshhold)
                                 {
                                     if (verbose) Console.WriteLine($"Ration Found: Difference {difference}");
-                                    ratios.Add(new SandTNTSyncRatio(0, g, sta, 0, tta, i, t, difference, sandpos + sandexpp, tntpos + tntexpp, sandpos, tntpos, sandvel, tntvel));
+                                    ratios.Add(new SandTNTSyncRatio(0, g, sta, 0, tta, i, t, difference, ConvertPosition(sandpos + sandexpp), ConvertPosition(tntpos + tntexpp), ConvertPosition(sandpos), ConvertPosition(tntpos), sandvel, tntvel));
                                 }
                                 sandvel += -0.04;
                                 sandpos += sandvel;
@@ -125,6 +125,10 @@ namespace SandTNTRatioFinderPublic
             guiderdiff = Convert.ToInt32(ConfigurationManager.AppSettings.Get("maxguiderydifference"));
         }
 
+        public static double ConvertPosition(double pos)
+        {
+            return (-guiderdiff - (pos - 1))*-1;
+        }
         static void Main(string[] args)
         {
             LoadConfig();
