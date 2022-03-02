@@ -4,9 +4,9 @@ Brute Force equal ratio for sand and tnt in newer minecraft versions.
 
 ## How to use:
 1) Download Release or Build with Visual Studio
-2) Open SandTNTRatioFinderPublic.exe
+2) Open SandTNTRatioFinderPublic.exe.config
 3) Change Settings and Save
-4) Run SandTNTRatioFinderPublic
+4) Run SandTNTRatioFinderPublic.exe
 
 ## Configuration:
 maxgametickdifference - The highes gametick difference of your sand and tnt booster. (Higher difference will mean possibly higher difference in velocity in the barrel.)
