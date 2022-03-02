@@ -55,4 +55,4 @@ Sand Y Vel: -0.325854386224906 | TNT Y Vel: -0.2925044757397
 - If you want to severely reduce the effect of the remaining difference between sand and tnt try reducing the angle (moving your power back further).
 
 ## Thanks
-Thanks to BelgianBomber, SplitBlade, Scobur and timur_the_mogol for helping me with different things as well as keeping me motivated while making this.
+Thanks to BelgianBomber, SplitBlade, Scobur, MrDex and timur_the_mogol for helping me with different things as well as keeping me motivated while making this.
