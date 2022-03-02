@@ -131,6 +131,8 @@ namespace SandTNTRatioFinderPublic
         }
         static void Main(string[] args)
         {
+            Console.Title = "Sand TNT Ratio Finder - by jesus_is_hot";
+
             LoadConfig();
             List<SandTNTSyncRatio> ratios = doSyncSim();
             Console.ForegroundColor = ConsoleColor.Yellow;
