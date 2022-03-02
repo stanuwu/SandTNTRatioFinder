@@ -40,8 +40,8 @@ Sand Guider Y: 0 | TNT Guider Y: 0
 Gameticks Dropped: 9 | Effective Difference: 0.000495524260299529
 (Gameticks Dropped means after how many gt in the barrel the difference will be smallest. Effective difference is the difference the exposure points should have.)
 
-Sand Pos: -0.604280688754689 (-1.43728068875469) | TNT Pos: -0.604776213014989 (-0.604776213014989)
-(The first position shows is the exposure position, the one in brackets is the real position.)
+Sand Pos: 18.2082193112453 (17.3752193112453) | TNT Pos: 18.207723786985 (18.207723786985)
+(The first position shows is the exposure position, the one in brackets is the real position. This assumes the y coordinate of your sand guider is at the max block difference you set. You should not need the actual position as you can get it from cannon debug or similar just the decimal points.)
 
 Sand Y Vel: -0.325854386224906 | TNT Y Vel: -0.2925044757397
 (This shows the Y velocity of the entities at the time they have the difference. Might be needed for calculating your power.)
