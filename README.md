@@ -2,6 +2,9 @@
 Brute Force equal ratio for sand and tnt in newer minecraft versions.
 (This program is WIP, please report any issues or bugs!)
 
+## Details
+This program will give you ratios on how to boost your sand and tnt into your barrel using timing and different top guiders to get close to equal exposure points.
+
 ## How to use:
 1) Download Release or Build with Visual Studio
 2) Open SandTNTRatioFinderPublic.exe.config
@@ -47,6 +50,9 @@ Sand Y Vel: -0.325854386224906 | TNT Y Vel: -0.2925044757397
 - TNT gets Exposure applied at its y position (0 up in the block) while sand gets it applied at its eye position (0.833 up in the block). The explosions happens 1 pixel up in the tnt (0.06125 up in the block).
 - When using cannondebug to view the ratios you can look for the TNT Y Velocity to easily find the right tick.
 - The program does not know how you are setting up your guiders, make sure you have enough booster and set up the guiders correctly.
+- In a lot of the ratios the tnt and sand will have different y velocities. Set the booster gt difference to 0 to get equal velocity.
+- You can counteract different y velocities using different sized powers or micro exposure depending on your usecase.
+- If you want to severely reduce the effect of the remaining difference between sand and tnt try reducing the angle (moving your power back further).
 
 ## Thanks
 Thanks to BelgianBomber, SplitBlade, Scobur and timur_the_mogol for helping me with different things as well as keeping me motivated while making this.
