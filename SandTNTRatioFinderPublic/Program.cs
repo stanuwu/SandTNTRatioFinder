@@ -26,14 +26,32 @@ namespace SandTNTRatioFinderPublic
             {"lantern", 0.0625 },
         };
 
+        private static Dictionary<string, double> bottomAligners = new Dictionary<string, double>
+        {
+            {"bottom_carpet", 0.0625 },
+            {"bottom_repeater", 0.125 },
+            {"bottom_trapdoor", 0.1875 },
+            {"bottom_daylight_sensor", 0.375 },
+            {"bottom_campfire", 0.4375 },
+            {"bottom_slab", 0.5 },
+            {"bottom_stonecutter", 0.5625 },
+            {"bottom_chain", 0.59375 },
+            {"bottom_lightning_rod", 0.625 },
+            {"bottom_conduit", 0.6875 },
+            {"bottom_enchanting_table", 0.75 },
+            {"bottom_chest", 0.875 },
+            {"bottom_path", 0.9375 },
+            {"bottom_full_block", 1 }
+        };
+            
         //subsititutes for some blocks(currently not used)
         static Dictionary<string, string[]> aliases = new Dictionary<string, string[]>
         {
-            {"top_trapdoor", new string[] { "top_small_amethyst" } },
-            {"sideways_lightning_rod", new string[] { "sideways_end_rod" } },
-            {"conduit", new string[] { "cocobean_stage_1" } },
-            {"sideways_skull", new string[] { "sideways_bell", "sideways_hopper", "small_amethyst_sideways" } },
-            { "sideways_amethyst_cluster", new string[] { "cocobean_stage_2" } },
+            {"top_trapdoor", new [] { "top_small_amethyst" } },
+            {"sideways_lightning_rod", new [] { "sideways_end_rod" } },
+            {"conduit", new [] { "cocobean_stage_1" } },
+            {"sideways_skull", new [] { "sideways_bell", "sideways_hopper", "small_amethyst_sideways" } },
+            { "sideways_amethyst_cluster", new [] { "cocobean_stage_2" } },
         };
 
         static bool verbose;
@@ -44,14 +62,24 @@ namespace SandTNTRatioFinderPublic
         static double differencethreshhold;
         static int showratios;
         static int guiderdiff;
+        static bool bottom_align;
+        static bool belgianmode;
 
         static readonly double tntexpp = 0;
         static readonly double sandexpp = 0.833;
 
         static List<SandTNTSyncRatio> doSyncSim()
         {
+            if (belgianmode)
+            {
+                topAligners.Remove("top_medium_amethyst");
+                topAligners.Remove("top_large_amethyst");
+                topAligners.Remove("amethyst_cluster");
+                topAligners.Remove("cocobean_stage_0");
+                topAligners.Remove("sideways_amethyst_cluster");
+            }
             Console.WriteLine("Finding Ratios!");
-            int combinations = topAligners.Count * topAligners.Count;
+            int combinations = topAligners.Count * (topAligners.Count + (bottom_align ? bottomAligners.Count : 0));
             Console.WriteLine($"Testing {combinations} Guider Combinations");
             int segment = combinations / 50;
             int iterations = 0;
@@ -105,6 +133,49 @@ namespace SandTNTRatioFinderPublic
                         }
                     }
                 }
+                if (bottom_align) foreach (string tta in bottomAligners.Keys)
+                {
+                    if (verbose) Console.WriteLine($"--TNT Bottom Aligner: {tta}");
+                    ns++;
+                    if (!verbose && ns > segment)
+                    {
+                        Console.Write("^");
+                        ns = 0;
+                    }
+                    for (int i = guiderdiff; i > -guiderdiff; i--)
+                    {
+                        for (int g = maxgtdiff; g >= 0; g--)
+                        {
+                            double sandpos = topAligners[sta] + 0.02;
+                            double sandvel = 0;
+                            double tntpos = i + (1 - bottomAligners[tta]);
+                            double tntvel = 0;
+                            for (int tm = 0; tm < g; tm++)
+                            {
+                                sandvel += -0.04;
+                                sandpos += sandvel;
+                                sandvel *= 0.98;
+                            }
+
+                            for (int t = 1; t < maxgtdrop; t++)
+                            {
+                                iterations++;
+                                double difference = Math.Abs((tntpos + tntexpp) - (sandpos + sandexpp));
+                                if (difference <= differencethreshhold)
+                                {
+                                    if (verbose) Console.WriteLine($"Ration Found: Difference {difference}");
+                                    ratios.Add(new SandTNTSyncRatio(0, g, sta, 0, tta, i, t, difference, ConvertPosition(sandpos + sandexpp), ConvertPosition(tntpos + tntexpp), ConvertPosition(sandpos), ConvertPosition(tntpos), sandvel, tntvel));
+                                }
+                                sandvel += -0.04;
+                                sandpos += sandvel;
+                                sandvel *= 0.98;
+                                tntvel += -0.04;
+                                tntpos += tntvel;
+                                tntvel *= 0.98;
+                            }
+                        }
+                    }
+                }
             }
             if (!verbose) Console.Write("^");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -121,6 +192,8 @@ namespace SandTNTRatioFinderPublic
             maxgtdiff = Convert.ToInt32(ConfigurationManager.AppSettings.Get("maxgametickdifference"));
             maxgtdrop = Convert.ToInt32(ConfigurationManager.AppSettings.Get("maxgametickdrop"));
             differencethreshhold = Convert.ToDouble(ConfigurationManager.AppSettings.Get("differencethreshhold"));
+            bottom_align = Convert.ToBoolean(ConfigurationManager.AppSettings.Get("bottom_align"));
+            belgianmode = Convert.ToBoolean(ConfigurationManager.AppSettings.Get("belgian_mode"));
             showratios = Convert.ToInt32(ConfigurationManager.AppSettings.Get("showratios"));
             guiderdiff = Convert.ToInt32(ConfigurationManager.AppSettings.Get("maxguiderydifference"));
         }
