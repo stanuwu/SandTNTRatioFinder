@@ -22,6 +22,10 @@ showratios - How many ratios to show after the calculation completes. (Sorted fr
 
 maxguiderydifference - How far the guiders can be apart in y level.
 
+bottom_align - enable bottom aligned tnt
+
+belgian_mode - disable amethysts and cocoa beans
+
 verbose - Enable advanced output while calculating (This will severely slow down the program.)
 
 savetofile - Save the ratios found to the ratios.txt file in the same folder as the program.
@@ -32,7 +36,7 @@ Sand Boost GT: 0 | TNT Boost GT: 1
 (This means the tnt booster needs to go off 1gt after the sand booster.)
 
 Sand Guider: sideways_skull | TNT Guider: top_medium_amethyst
-(These are the top alignment guiders for both sand and tnt.)
+(These are the top alignment guiders for both sand and tnt. If the tnt guider starts with bottom then tnt needs to be bottom aligned, i dont think the height for that is actually correct rn.)
 
 Sand Guider Y: 0 | TNT Guider Y: 0
 (This is the y level of the guiders, in this case they would be on the same level but if TNT Guider Y was 1 it would be 1 block higher and if it was -1 it would be 1 block lower.)
